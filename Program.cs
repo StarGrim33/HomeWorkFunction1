@@ -7,10 +7,7 @@
             string[] fullName = new string[0];
             string[] position = new string[0];
             bool isProgrammOn = true;
-            
             Console.SetCursorPosition(40, 0);
-            ShowMenu();
-
             static void ShowMenu()
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -24,28 +21,22 @@
 
             while (isProgrammOn)
             {
-                string userMenuNavigate = null;
-                int dosierDeleting = 0;
-                int index = 0;
-                userMenuNavigate = Console.ReadLine();
+                ShowMenu();
+                string userMenuNavigate = Console.ReadLine();
                 
                 switch (userMenuNavigate)
                 {
                     case "1":
                         AddDosier(ref userMenuNavigate, ref fullName, ref position);
-                        ShowMenu();
                         break;
                     case "2":
                         ShowAllDosier(fullName, position);
-                        ShowMenu();
                         break;
                     case "3":
-                        DeleteDosier(ref fullName, index);
-                        ShowMenu();
+                        DeleteDosier(ref fullName);
                         break;
                     case "4": 
                         SearchByDosier(fullName);
-                        ShowMenu();
                         break;
                     case "5":
                         Console.Clear();
@@ -60,96 +51,107 @@
                 }
 
             }
-            static void AddDosier(ref string userMenuNavigate, ref string[] fullName, ref string[] position)
+            
+        }
+
+        static void AddDosier(ref string userMenuNavigate, ref string[] fullName, ref string[] position)
+        {
+            Console.WriteLine("Введите Ваше ФИО: ");
+            ExpansionArrayFullName(ref userMenuNavigate, ref fullName);
+            Console.WriteLine("Введите Вашу должность: ");
+            ExpansionArrayPosition(ref userMenuNavigate, ref position);
+        }
+
+        static void ExpansionArrayFullName(ref string userMenuNavigate, ref string[] fullName)
+        {
+            userMenuNavigate = Console.ReadLine();
+            string[] fullNameTemp = new string[fullName.Length + 1];
+
+            for (int i = 0; i < fullName.Length; i++)
             {
-                Console.WriteLine("Введите Ваше ФИО или нажмите пункт меню, чтобы переместиться.");
-                userMenuNavigate = Console.ReadLine();
-                ExpansionArray(ref userMenuNavigate, ref fullName, ref position);
+                fullNameTemp[i] = fullName[i];
             }
-            static void ExpansionArray(ref string userMenuNavigate, ref string[] fullName, ref string[] position)
+
+            fullNameTemp[fullNameTemp.Length - 1] = userMenuNavigate;
+            fullName = fullNameTemp;
+        }
+
+        static void ExpansionArrayPosition(ref string userMenuNavigate, ref string[] position)
+        {
+            userMenuNavigate = Console.ReadLine();
+            string[] positionTemp = new string[position.Length + 1];
+
+            for (int i = 0; i < position.Length; i++)
             {
-                string[] fullNameTemp = new string[fullName.Length + 1];
-
-                for (int i = 0; i < fullName.Length; i++)
-                {
-                    fullNameTemp[i] = fullName[i];
-                }
-
-                fullNameTemp[fullNameTemp.Length - 1] = userMenuNavigate;
-                fullName = fullNameTemp;
-
-                Console.WriteLine("Введите Вашу должность: ");
-                userMenuNavigate = Console.ReadLine();
-                string[] positionTemp = new string[position.Length + 1];
-
-                for (int i = 0; i < position.Length; i++)
-                {
-                    positionTemp[i] = position[i];
-                }
-
-                positionTemp[positionTemp.Length - 1] = userMenuNavigate;
-                position = positionTemp;
+                positionTemp[i] = position[i];
             }
-            static void ShowAllDosier(string[] fullName,  string[] position)
+
+            positionTemp[positionTemp.Length - 1] = userMenuNavigate;
+            position = positionTemp;
+        }
+
+        static void ShowAllDosier(string[] fullName, string[] position)
+        {
+            Console.Clear();
+            Console.WriteLine("Всё досье: ");
+
+            for (int i = 0; i < fullName.Length; i++)
             {
-                Console.Clear();
-                Console.WriteLine("Всё досье: ");
-
-                for (int i = 0; i < fullName.Length; i++)
-                {
-                    Console.WriteLine("ФИО: " + (i+1) + "-" + fullName[i] + ", должность - "+ position[i]); 
-                }
-
+                Console.WriteLine("ФИО: " + (i + 1) + "-" + fullName[i] + ", должность - " + position[i]);
             }
-            static void DeleteDosier(ref string[] fullName, int index)
-            {
-                int dosierDeleting = 0;
-                Console.WriteLine("Какое досье Вы хотите удалить");
-                dosierDeleting = Convert.ToInt32(Console.ReadLine());    
 
-                if (dosierDeleting > 0 && fullName.Length >= 2)
-                {
-                    DeletingDosier(ref fullName, index, dosierDeleting);
-                }
-                else
-                {
-                    Console.WriteLine("Некорректное значение");
-                }
-                
+        }
+
+        static void DeleteDosier(ref string[] fullName)
+        {
+
+            Console.WriteLine("Какое досье Вы хотите удалить");
+            int dosierDeleting = Convert.ToInt32(Console.ReadLine());
+
+            if (dosierDeleting > 0 && fullName.Length >= 2)
+            {
+                DeletingDosier(ref fullName, dosierDeleting);
             }
-            static void DeletingDosier(ref string[] fullName, int dosierDeleting)
+            else
             {
-                int index = dosierDeleting - 1;
-                string[] fullNameTemp = new string[fullName.Length - 1];
-
-                for (int i = 0; i < index; i++)
-                {
-                    fullNameTemp[i] = fullName[i];
-                }
-
-                for (int i = index + 1; i < fullName.Length; i++)
-                {
-                    fullNameTemp[i - 1] = fullName[i];
-                }
-
-                fullName = fullNameTemp;
+                Console.WriteLine("Некорректное значение");
             }
-            static void SearchByDosier(string[] fullName)
-            {
-                Console.WriteLine("Введите фамилию для поиска: ");
-                string userMenuNavigate = Console.ReadLine();
-                int searchByDosier = Array.IndexOf(fullName, userMenuNavigate);
 
-                if (searchByDosier > -1)
-                {
-                    Console.WriteLine("Элемент " + userMenuNavigate + " найден");
-                }
-                else
-                {
-                    Console.WriteLine("Нет данных");
-                }
-                
-            } 
+        }
+
+        static void DeletingDosier(ref string[] fullName, int dosierDeleting)
+        {
+            int index = dosierDeleting - 1;
+            string[] fullNameTemp = new string[fullName.Length - 1];
+
+            for (int i = 0; i < index; i++)
+            {
+                fullNameTemp[i] = fullName[i];
+            }
+
+            for (int i = index + 1; i < fullName.Length; i++)
+            {
+                fullNameTemp[i - 1] = fullName[i];
+            }
+
+            fullName = fullNameTemp;
+        }
+
+        static void SearchByDosier(string[] fullName)
+        {
+            Console.WriteLine("Введите фамилию для поиска: ");
+            string userMenuNavigate = Console.ReadLine();
+            int searchByDosier = Array.IndexOf(fullName, userMenuNavigate);
+
+            if (searchByDosier > -1)
+            {
+                Console.WriteLine("Элемент " + userMenuNavigate + " найден");
+            }
+            else
+            {
+                Console.WriteLine("Нет данных");
+            }
+
         }
     }
 }
