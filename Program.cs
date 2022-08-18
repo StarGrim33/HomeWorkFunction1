@@ -8,6 +8,7 @@
             string[] position = new string[0];
             bool isProgrammOn = true;
             Console.SetCursorPosition(40, 0);
+
             static void ShowMenu()
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -27,7 +28,8 @@
                 switch (userMenuNavigate)
                 {
                     case "1":
-                        AddDosier(ref userMenuNavigate, ref fullName, ref position);
+                        AddDosier(ref userMenuNavigate, ref fullName);
+                        AddDosier(ref userMenuNavigate, ref position);
                         break;
                     case "2":
                         ShowAllDosier(fullName, position);
@@ -54,15 +56,14 @@
             
         }
 
-        static void AddDosier(ref string userMenuNavigate, ref string[] fullName, ref string[] position)
+        static void AddDosier(ref string userMenuNavigate, ref string[] fullName)
         {
             Console.WriteLine("Введите Ваше ФИО: ");
-            ExpansionArrayFullName(ref userMenuNavigate, ref fullName);
+            ExpansionArray(ref userMenuNavigate, ref fullName);
             Console.WriteLine("Введите Вашу должность: ");
-            ExpansionArrayPosition(ref userMenuNavigate, ref position);
         }
 
-        static void ExpansionArrayFullName(ref string userMenuNavigate, ref string[] fullName)
+        static void ExpansionArray(ref string userMenuNavigate, ref string[] fullName, ref string[] position)
         {
             userMenuNavigate = Console.ReadLine();
             string[] fullNameTemp = new string[fullName.Length + 1];
@@ -74,10 +75,7 @@
 
             fullNameTemp[fullNameTemp.Length - 1] = userMenuNavigate;
             fullName = fullNameTemp;
-        }
 
-        static void ExpansionArrayPosition(ref string userMenuNavigate, ref string[] position)
-        {
             userMenuNavigate = Console.ReadLine();
             string[] positionTemp = new string[position.Length + 1];
 
