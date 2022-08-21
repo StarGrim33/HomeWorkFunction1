@@ -28,14 +28,13 @@
                 switch (userMenuNavigate)
                 {
                     case "1":
-                        AddDosier(ref userMenuNavigate, ref fullName);
-                        AddDosier(ref userMenuNavigate, ref position);
+                        AddDosier(ref userMenuNavigate,  ref fullName, ref position);
                         break;
                     case "2":
                         ShowAllDosier(fullName, position);
                         break;
                     case "3":
-                        DeleteDosier(ref fullName);
+                        DeleteDosier(ref fullName, ref position);
                         break;
                     case "4": 
                         SearchByDosier(fullName);
@@ -56,13 +55,13 @@
             
         }
 
-        static void AddDosier(ref string userMenuNavigate, ref string[] fullName)
+        static void AddDosier(ref string userMenuNavigate, ref string[] fullName, ref string[] position)
         {
-            Console.WriteLine("Введите Ваше ФИО: ");
-            ExpansionArray(ref userMenuNavigate, ref fullName);
-            Console.WriteLine("Введите Вашу должность: ");
-        }
+            Console.WriteLine("Введите ФИО: ");
+            ExpansionArray(ref userMenuNavigate, ref fullName, ref position);
 
+        }
+       
         static void ExpansionArray(ref string userMenuNavigate, ref string[] fullName, ref string[] position)
         {
             userMenuNavigate = Console.ReadLine();
@@ -76,6 +75,7 @@
             fullNameTemp[fullNameTemp.Length - 1] = userMenuNavigate;
             fullName = fullNameTemp;
 
+            Console.WriteLine("Введите должность: ");
             userMenuNavigate = Console.ReadLine();
             string[] positionTemp = new string[position.Length + 1];
 
@@ -100,15 +100,15 @@
 
         }
 
-        static void DeleteDosier(ref string[] fullName)
+        static void DeleteDosier(ref string[] fullName, ref string[] position)
         {
 
             Console.WriteLine("Какое досье Вы хотите удалить");
             int dosierDeleting = Convert.ToInt32(Console.ReadLine());
 
-            if (dosierDeleting > 0 && fullName.Length >= 2)
+            if (dosierDeleting > 0 && fullName.Length >= 1)
             {
-                DeletingDosier(ref fullName, dosierDeleting);
+                DeletingDosier(ref fullName, ref position, dosierDeleting);
             }
             else
             {
@@ -117,7 +117,7 @@
 
         }
 
-        static void DeletingDosier(ref string[] fullName, int dosierDeleting)
+        static void DeletingDosier(ref string[] fullName, ref string[] position, int dosierDeleting)
         {
             int index = dosierDeleting - 1;
             string[] fullNameTemp = new string[fullName.Length - 1];
@@ -133,6 +133,20 @@
             }
 
             fullName = fullNameTemp;
+
+            string[] positionTemp = new string[position.Length - 1];
+
+            for (int i = 0; i < index; i++)
+            {
+                positionTemp[i] = position[i];
+            }
+
+            for (int i = index + 1; i < position.Length; i++)
+            {
+                positionTemp[i- 1] = position[i];
+            }
+
+            position = positionTemp;
         }
 
         static void SearchByDosier(string[] fullName)
