@@ -28,7 +28,7 @@
                 switch (userMenuNavigate)
                 {
                     case "1":
-                        AddDosier(ref userMenuNavigate,  ref fullName, ref position);
+                        AddDosier(ref fullName, ref position);
                         break;
                     case "2":
                         ShowAllDosier(fullName, position);
@@ -46,8 +46,7 @@
                         isProgrammOn = false;
                         break;
                     default:
-                        Console.WriteLine("Не введено релеватного значения. Попробуйте еще раз.");
-                        isProgrammOn = false;
+                        Console.WriteLine("Не введено релеватного значения. Попробуйте еще раз."); 
                         break;
                 }
 
@@ -55,16 +54,16 @@
             
         }
 
-        static void AddDosier(ref string userMenuNavigate, ref string[] fullName, ref string[] position)
+        static void AddDosier(ref string[] fullName, ref string[] position)
         {
             Console.WriteLine("Введите ФИО: ");
-            ExpansionArray(ref userMenuNavigate, ref fullName, ref position);
+            ExpansionArray(ref fullName, ref position);
 
         }
        
-        static void ExpansionArray(ref string userMenuNavigate, ref string[] fullName, ref string[] position)
+        static void ExpansionArray(ref string[] fullName, ref string[] position)
         {
-            userMenuNavigate = Console.ReadLine();
+            string userMenuNavigate = Console.ReadLine();
             string[] fullNameTemp = new string[fullName.Length + 1];
 
             for (int i = 0; i < fullName.Length; i++)
