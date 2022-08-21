@@ -60,7 +60,8 @@
             ExpansionArray(ref fullName, ref position);
             Console.WriteLine("Введите должность: ");
             ExpansionArray(ref position, ref fullName);
-
+            Console.WriteLine("Введите член: ");
+            ExpansionArray(ref fullName, ref position);
         }
        
         static void ExpansionArray(ref string[] fullName, ref string[] position)
