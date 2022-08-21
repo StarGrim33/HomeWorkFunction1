@@ -58,6 +58,7 @@
         {
             Console.WriteLine("Введите ФИО: ");
             ExpansionArray(ref fullName, ref position);
+            Console.WriteLine("Введите должность: ");
             ExpansionArray(ref position, ref fullName);
 
         }
@@ -75,7 +76,6 @@
             fullNameTemp[fullNameTemp.Length - 1] = userMenuNavigate;
             fullName = fullNameTemp;
 
-            Console.WriteLine("Введите должность: ");
             
         }
 
