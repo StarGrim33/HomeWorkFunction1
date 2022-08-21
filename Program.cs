@@ -58,6 +58,7 @@
         {
             Console.WriteLine("Введите ФИО: ");
             ExpansionArray(ref fullName, ref position);
+            ExpansionArray(ref position, ref fullName);
 
         }
        
@@ -75,16 +76,7 @@
             fullName = fullNameTemp;
 
             Console.WriteLine("Введите должность: ");
-            userMenuNavigate = Console.ReadLine();
-            string[] positionTemp = new string[position.Length + 1];
-
-            for (int i = 0; i < position.Length; i++)
-            {
-                positionTemp[i] = position[i];
-            }
-
-            positionTemp[positionTemp.Length - 1] = userMenuNavigate;
-            position = positionTemp;
+            
         }
 
         static void ShowAllDosier(string[] fullName, string[] position)
