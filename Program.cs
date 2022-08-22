@@ -4,8 +4,8 @@
     {
         static void Main(string[] args)
         {
-            string[] fullName = new string[0];
-            string[] position = new string[0];
+            string[] fullName = Array.Empty<string>();
+            string[] position = Array.Empty<string>();
             bool isProgrammOn = true;
             Console.SetCursorPosition(40, 0);
 
@@ -24,7 +24,7 @@
             {
                 ShowMenu();
                 string userMenuNavigate = Console.ReadLine();
-                
+
                 switch (userMenuNavigate)
                 {
                     case "1":
@@ -36,7 +36,7 @@
                     case "3":
                         DeleteDosier(ref fullName, ref position);
                         break;
-                    case "4": 
+                    case "4":
                         SearchByDosier(fullName);
                         break;
                     case "5":
@@ -46,38 +46,34 @@
                         isProgrammOn = false;
                         break;
                     default:
-                        Console.WriteLine("Не введено релеватного значения. Попробуйте еще раз."); 
+                        Console.WriteLine("Не введено релеватного значения. Попробуйте еще раз.");
                         break;
                 }
 
             }
-            
+
         }
 
         static void AddDosier(ref string[] fullName, ref string[] position)
         {
             Console.WriteLine("Введите ФИО: ");
-            ExpansionArray(ref fullName, ref position);
+            ExpansionArray(ref fullName);
             Console.WriteLine("Введите должность: ");
-            ExpansionArray(ref position, ref fullName);
-            Console.WriteLine("Введите член: ");
-            ExpansionArray(ref fullName, ref position);
+            ExpansionArray(ref position);
         }
        
-        static void ExpansionArray(ref string[] fullName, ref string[] position)
+        static void ExpansionArray(ref string[] fullName)
         {
             string userMenuNavigate = Console.ReadLine();
-            string[] fullNameTemp = new string[fullName.Length + 1];
+            string[] arrayTemp = new string[fullName.Length + 1];
 
             for (int i = 0; i < fullName.Length; i++)
             {
-                fullNameTemp[i] = fullName[i];
+                arrayTemp[i] = fullName[i];
             }
 
-            fullNameTemp[fullNameTemp.Length - 1] = userMenuNavigate;
-            fullName = fullNameTemp;
-
-            
+            arrayTemp[arrayTemp.Length - 1] = userMenuNavigate;
+            fullName = arrayTemp;
         }
 
         static void ShowAllDosier(string[] fullName, string[] position)
@@ -94,13 +90,13 @@
 
         static void DeleteDosier(ref string[] fullName, ref string[] position)
         {
-
             Console.WriteLine("Какое досье Вы хотите удалить");
             int dosierDeleting = Convert.ToInt32(Console.ReadLine());
 
             if (dosierDeleting > 0 && fullName.Length >= 1)
             {
-                DeletingDosier(ref fullName, ref position, dosierDeleting);
+                DeletingDosier(ref fullName, dosierDeleting);
+                DeletingDosier(ref position, dosierDeleting);
             }
             else
             {
@@ -109,36 +105,22 @@
 
         }
 
-        static void DeletingDosier(ref string[] fullName, ref string[] position, int dosierDeleting)
+        static void DeletingDosier(ref string[] fullName, int dosierDeleting)
         {
             int index = dosierDeleting - 1;
-            string[] fullNameTemp = new string[fullName.Length - 1];
+            string[] arrayTemp = new string[fullName.Length - 1];
 
             for (int i = 0; i < index; i++)
             {
-                fullNameTemp[i] = fullName[i];
+                arrayTemp[i] = fullName[i];
             }
 
             for (int i = index + 1; i < fullName.Length; i++)
             {
-                fullNameTemp[i - 1] = fullName[i];
+                arrayTemp[i - 1] = fullName[i];
             }
 
-            fullName = fullNameTemp;
-
-            string[] positionTemp = new string[position.Length - 1];
-
-            for (int i = 0; i < index; i++)
-            {
-                positionTemp[i] = position[i];
-            }
-
-            for (int i = index + 1; i < position.Length; i++)
-            {
-                positionTemp[i- 1] = position[i];
-            }
-
-            position = positionTemp;
+            fullName = arrayTemp;     
         }
 
         static void SearchByDosier(string[] fullName)
