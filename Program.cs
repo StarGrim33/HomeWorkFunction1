@@ -34,10 +34,10 @@
                         ShowAllDosier(fullName, position);
                         break;
                     case "3":
-                        DeleteDosier(ref fullName, ref position);
+                        ChooseDeletedDosier(ref fullName, ref position);
                         break;
                     case "4":
-                        SearchByDosier(fullName);
+                        SearchByDosier(fullName, position);
                         break;
                     case "5":
                         Console.Clear();
@@ -88,15 +88,15 @@
 
         }
 
-        static void DeleteDosier(ref string[] fullName, ref string[] position)
+        static void ChooseDeletedDosier(ref string[] fullName, ref string[] position)
         {
             Console.WriteLine("Какое досье Вы хотите удалить");
             int dosierDeleting = Convert.ToInt32(Console.ReadLine());
 
             if (dosierDeleting > 0 && fullName.Length >= 1)
             {
-                DeletingDosier(ref fullName, dosierDeleting);
-                DeletingDosier(ref position, dosierDeleting);
+                DeleteDosier(ref fullName, dosierDeleting);
+                DeleteDosier(ref position, dosierDeleting);
             }
             else
             {
@@ -105,7 +105,7 @@
 
         }
 
-        static void DeletingDosier(ref string[] fullName, int dosierDeleting)
+        static void DeleteDosier(ref string[] fullName, int dosierDeleting)
         {
             int index = dosierDeleting - 1;
             string[] arrayTemp = new string[fullName.Length - 1];
@@ -123,19 +123,28 @@
             fullName = arrayTemp;     
         }
 
-        static void SearchByDosier(string[] fullName)
+        static void SearchByDosier(string[] fullName, string[] position)
         {
             Console.WriteLine("Введите фамилию для поиска: ");
             string userMenuNavigate = Console.ReadLine();
-            int searchByDosier = Array.IndexOf(fullName, userMenuNavigate);
+            int indexArray = 0;
 
-            if (searchByDosier > -1)
+            for (int i = 0; i < fullName.Length; i++)
             {
-                Console.WriteLine("Элемент " + userMenuNavigate + " найден");
+                if (fullName[i].StartsWith(userMenuNavigate, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    indexArray = i;
+                    break;
+                }
             }
-            else
+
+            if (indexArray == -1)
             {
-                Console.WriteLine("Нет данных");
+                Console.WriteLine("Нет результатов");
+            }
+            else if (indexArray > - 1)
+            {
+                Console.WriteLine("Досье " + userMenuNavigate +  " найдено под номером : " + (indexArray+1) + " " + fullName[indexArray]+ ", должность: "+ position[indexArray]);
             }
 
         }
