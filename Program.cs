@@ -126,8 +126,8 @@
         static void SearchByDosier(string[] fullName, string[] position)
         {
             Console.WriteLine("Введите фамилию для поиска: ");
-            string userMenuNavigate = Console.ReadLine();
-            string[] fullNameSearch = null;
+            string userChoice = Console.ReadLine();
+            string[] fullNameSearch = Array.Empty<string>();
             int indexArray = 0;
 
             for (int i = 0; i < fullName.Length; i++)
@@ -139,12 +139,14 @@
                     
                 }
 
-                if (userMenuNavigate == fullNameSearch[i])
+                if (userChoice == fullNameSearch[i])
                 {
                     indexArray = i;
                     Console.WriteLine("Элемент найден под порядковым номером: " + (indexArray+1) + " " + fullName[i] + ", должность: " + position[i]);
                 }
+
             }
+
         }
     }
 }
