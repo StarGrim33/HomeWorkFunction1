@@ -61,7 +61,7 @@
             Console.WriteLine("Введите должность: ");
             ExpansionArray(ref position);
         }
-       
+
         static void ExpansionArray(ref string[] fullName)
         {
             string userMenuNavigate = Console.ReadLine();
@@ -120,33 +120,31 @@
                 arrayTemp[i - 1] = fullName[i];
             }
 
-            fullName = arrayTemp;     
+            fullName = arrayTemp;
         }
 
         static void SearchByDosier(string[] fullName, string[] position)
         {
             Console.WriteLine("Введите фамилию для поиска: ");
             string userMenuNavigate = Console.ReadLine();
+            string[] fullNameSearch = null;
             int indexArray = 0;
 
             for (int i = 0; i < fullName.Length; i++)
             {
-                if (fullName[i].StartsWith(userMenuNavigate, StringComparison.InvariantCultureIgnoreCase))
+              fullNameSearch = fullName[i].Split(' ');
+
+                for (int j = 0; j < fullNameSearch.Length; j++)
+                {
+                    
+                }
+
+                if (userMenuNavigate == fullNameSearch[i])
                 {
                     indexArray = i;
-                    break;
+                    Console.WriteLine("Элемент найден под порядковым номером: " + (indexArray+1) + " " + fullName[i] + ", должность: " + position[i]);
                 }
             }
-
-            if (indexArray == -1)
-            {
-                Console.WriteLine("Нет результатов");
-            }
-            else if (indexArray > - 1)
-            {
-                Console.WriteLine("Досье " + userMenuNavigate +  " найдено под номером : " + (indexArray+1) + " " + fullName[indexArray]+ ", должность: "+ position[indexArray]);
-            }
-
         }
     }
 }
